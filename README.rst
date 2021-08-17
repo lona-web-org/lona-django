@@ -5,6 +5,14 @@ This package contains `Lona <http://lona-web.org>`_ helper to integrate with
 `Django <https://www.djangoproject.com/>`_.
 
 
+Installation
+------------
+
+.. code-block:: text
+
+    $ pip install lona-django
+
+
 Django Auth
 -----------
 
