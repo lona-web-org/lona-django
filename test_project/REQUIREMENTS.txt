@@ -1,0 +1,5 @@
+-e ..
+-e django-project/
+lona
+aiohttp_wsgi
+Django>=2.2,<3

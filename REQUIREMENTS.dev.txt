@@ -1,0 +1,4 @@
+-e .
+lona
+tox
+flake8
