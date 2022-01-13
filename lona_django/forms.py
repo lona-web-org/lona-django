@@ -103,11 +103,12 @@ class DjangoModelForm(Widget):
     # model form api ##########################################################
     def reset(self):
         for field_name, (field, field_input) in self.get_fields().items():
-            field_input.value = str(
+            field_input.value = self.django_value(
+                field,
                 getattr(
                     self.model_object,
                     field_name
-                ) or '',
+                ),
             )
 
     def save(self):
@@ -163,6 +164,13 @@ class DjangoModelForm(Widget):
 
         return TextInput()
 
+    def django_value(self, field, value):
+        if isinstance(field, CheckBox) or \
+           isinstance(field, BooleanField):
+            return bool(value) or False
+
+        return str(value) or ''
+
     def render(self):
         nodes = [
             Table(),
@@ -174,8 +182,10 @@ class DjangoModelForm(Widget):
             field_input.bubble_up = True
             field_input.attributes['name'] = field_name
 
-            field_input.value = str(
-                getattr(self.model_object, field_name) or '')
+            field_input.value = self.django_value(
+                field_input,
+                getattr(self.model_object, field_name),
+                )
 
             field_input.class_list.add('modal-form')
 
